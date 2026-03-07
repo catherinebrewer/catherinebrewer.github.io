@@ -55,7 +55,7 @@ body.wip_post {
 html {
     font-size: 18px;
     line-height: 1;
-    font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -263,6 +263,7 @@ a:hover {
 .post-content li {
     margin-bottom: 0.4rem;
     line-height: 1.6;
+    font-size: 1.05rem;
 }
 
 /* Blockquotes — used for pull quotes, epigraphs, etc. */
@@ -359,10 +360,10 @@ a:hover {
     line-height: 1.3;
 }
 
-/* Stack on mobile */
-@media (max-width: 500px) {
+/* Stack on mobile — image goes below text */
+@media (max-width: 768px) {
     .home-intro {
-        flex-direction: column;
+        flex-direction: column-reverse;
     }
 }
 
