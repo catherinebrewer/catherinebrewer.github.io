@@ -49,11 +49,11 @@ What do philosophers do, and should they do it? Some hasty sketches and suggesti
 9. Formal puzzling, an aesthetic endeavour
 	1. The way e.g. theoretical physics or number theory is a big pile of beautiful work
 
-I don't think philosophy has had much purchase on many important questions. I'm sympathetic to (1) and (3) and (5), mostly — and I respect (2), though it's hard to think smart people should spend their time on it — and by my lights, philosophy's not made much progress here. We've thrown many smart people at it for many years. This is not a very productive field. It seems largely to be squabbling in dark and dusty corners, about problems so far removed from anything that could possibly matter. It's a game, emphasising the artificiality implications of the word. Etc etc, you get it.
+I don't think philosophy has had much purchase on many important questions. I'm sympathetic to (1) and (3) and (5), mostly — and I respect (2), though it's hard to think smart people should spend their time on it — and by my lights, philosophy's not made much progress here. (We've thrown many smart people at it for many years. This is not a very productive field. It seems largely to be squabbling in dark and dusty corners, about problems so far removed from anything that could possibly matter. It's a game, emphasising the artificiality implications of the word. Etc etc, you get it.)
 
 ## But this is a straw man. What about the philosophers that get it?
 
-So I've dunked on most professional philosophy: this isn't novel. What about the people that get it? Am I saying FHI was a mistake, GPI a doomed endeavour? Should Andreas Mogensen throw in the towel and start working on US AI policy?
+So I've dunked on most professional philosophy: this isn't novel. What about the people that get it? Am I saying FHI was a mistake, GPI a doomed endeavour? Should today's great philosophers throw in the towel and start working on US AI policy?
 
 Well, maybe. The track record of this kind of philosophy seems hard to assess. Some scattered thoughts:
 1. Early big-picture futurism — Bostrom and his acolytes etc — seems very fruitful to me.
@@ -92,6 +92,8 @@ This is a reasonable objection. I think philosophy, being good at philosophy, wh
 So, apply the necessary scepticism. But I really think it's not just sour grapes: I really do worry that very clever people are anchored on doing philosophy. And I think professional philosophy doesn't make it easy to do good work, and many other similar kinds of work can be done for much more impact. (Do that macrostrategy! Hell, even do the US policy stuff, do the "thinking through thorny decisions" — I claim "getting a job that requires thought" actually has lots of the same fun properties as doing philosophy. It's not like grantmaking involves much a priori reasoning or paper-reading or high-flying abstract thought, and I think it's pretty similarly intellectually satisfying.)
 
 I'm with [Cato](https://penelope.uchicago.edu/Thayer/e/roman/texts/plutarch/lives/Cato_major*.html) on this one, but for different reasons. And try not to feel too bad about it: once we've solved the world's problems, we can go back to the [truth mines](https://en.wikipedia.org/wiki/Diaspora_(novel)) and inquire into the fundamental nature of Knowledge.
+
+***
 
 [^1]: Besides gainful employment. (I don't think it's *just* gainful employment that did the work.)
 
