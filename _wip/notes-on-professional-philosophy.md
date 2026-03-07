@@ -56,16 +56,17 @@ I don't think philosophy has had much purchase on many important questions. I'm 
 So I've dunked on most professional philosophy: this isn't novel. What about the people that get it? Am I saying FHI was a mistake, GPI a doomed endeavour? Should today's great philosophers throw in the towel and start working on US AI policy?
 
 Well, maybe. The track record of this kind of philosophy seems hard to assess. Some scattered thoughts:
-1. Early big-picture futurism — Bostrom and his acolytes etc — seems very fruitful to me.
+1. Early big-picture futurism — Bostrom and his acolytes etc — seems very fruitful to me. (And I also think there was much less shovel-ready work to do, much more confusion and uncertainty, a smaller field, etc — all factors that push towards doing philosophy).
 2. Similarly, the early work on EA and longtermism seems really excellent to me.
-3. On priors, it would be pretty surprising if we'd exhausted all the useful crucial considerations to be found.
+3. On priors, it would be pretty surprising if we'd exhausted all the useful crucial considerations to be found. It's been, what, 10-15 years? We've tried maybe, I don't know, 50ish people at it? (I don't know the actual figure, and it'll depend a lot on where you draw the boundaries, how much you count summer researchers, etc). There probably is more FHI-ish fruit out there.
 4. The track record of post-FHI philosophising, relative to the quality of the people involved, seems underwhelming to me.
-	1. My sense is that philosophy-style work done by non-philosophers, or outside the academy, has been more useful overall.
-5. In many ways, the work of very talented philosophers on EA- or longtermism- or AI safety-adjacent topics seems like the greatest loss to me.
+    1. There are exceptions and notable papers, and different people have different taste, of course. I found work on fanaticism clarifying; my friends have different highlights.
+	1. My sense is that philosophy-style work done by non-philosophers, or outside the academy, has been more useful overall. (I think this trend has continued: Forethought do good philosophy-ish work.)
+6. In many ways, the work of very talented philosophers on EA- or longtermism- or AI safety-adjacent topics seems like the greatest loss to me.
 	1. They're *so close*. They get the topics and the focus, they have the skills for careful thought in abundance.
 	2. And yet!
-6. Idk man, should I even be commenting on this?
-	1. It's hard to predict what's important in advance; who am I to criticise these people, anyway?
+7. Idk man, should I even be commenting on this?
+	1. It's hard to predict what's important in advance; ex ante great bets often look underwhelming ex post, especially if you're taking a hits-based approach and hunting for the unlikely great outcomes; who am I to criticise these people, anyway?
 
 ## What should one do instead of philosophy?
 
@@ -75,13 +76,15 @@ Other virtues: its detachment or disinterest in what seems locally pressing or i
 
 Like many endeavours, philosophy is heavy-tailed. Some exceptional philosophers have had extraordinary careers, and I'm glad they did philosophy.[^5]
 
-I think some of the virtues and attachments of the discipline breed a kind of exceptionalism in young people who are good at philosophy, which makes it much harder for them to evaluate if they should do philosophy. But it seems just *so hard* to tell in advance, a matter of luck as well as skill. And anyway, to even have the shot on goal you want, you have to go through 4-6 years of working within a frame with different goals and values to your own.
+I think some of the virtues and attachments of the discipline breed a kind of exceptionalism in young people who are good at philosophy, which makes it much harder for them to evaluate if they should do philosophy.  ("Oh, well, I know only the best of the best make it, I know only the top grad students from the top 5 programs have a shot. But I'm pretty plausibly one of them, you know.") But it seems just *so hard* to tell in advance, a matter of luck as well as skill. And anyway, to even have the shot on goal you want, you have to go through 4-6 years of working within a frame with different goals and values to your own.
 
 It's kind of a tragedy when brilliant young people do professional philosophy. I think it's almost grass-counting, except we should imagine that there are all kinds of neat unsolvable puzzles with the grass, or exciting formalisms to play with, and there's a conference on how you should think about infinite series of grasses, too, and the other grass-counters have these clearly crazy views on the minutiae of grass-counting that you need to refute.
 
 There's an anecdote I've told people, though I worry I'm misremembering it, but anyway: I have the memory of lingering at the end of a tutorial with my philosophy professor, a kind man very clearly smarter than me, enjoying all the professional success you could hope for within academic philosophy. I somewhat sheepishly asked about philosophy grad school. He said quite frankly and clearly, well, he'd be happy to support me in applying, but if I could imagine enjoying other work, then I should find other work. (I could imagine enjoying other work, and I did.) I think he was right.
 
 My suspicion is that professional philosophy makes it harder to do really useful work, at least by my lights. Prima facie, this seems like it needn't be the case: I think there is lots of important, useful work to be done in macrostrategy and futurism and even, whisper it, the far-flung reaches of ethics and decision theory, and this work shares many similarities with philosophy. But it seems that professional philosophy makes doing this harder.
+
+(My guesses at why: well, you have to publish; the discipline valorises puzzle-solving and games with words rather than fuzzy big-picture things; it's aesthetically less clean and neat; sometimes it touches the real world; none of your grad student friends will talk about it with you; it's socially lower-status. And philosophy is close enough, in skills and values and aims, that I think it's easy to get swept up in it, or to stop looking for other goals. But they really do diverge.[6])
 
 I think many people who are good at philosophy and care somewhat about impact have philosophy in their top 2 or 3 careers. The thought is, go do the thing you're exemplary at and love, and pick the important topics within it. But I think philosophy has this adverse effect on how one thinks and what one thinks about, and so I want these people to have it as more like a top 10 option.
 
@@ -102,5 +105,7 @@ I'm with [Cato](https://penelope.uchicago.edu/Thayer/e/roman/texts/plutarch/live
 [^4]: Which can go wrong. But in high school, I loved philosophy for this: all we cared about was what was right, it wasn't a game of citing people or learning dates or deferring to people's experiences; it was almost pure inquiry/arguing/figuring-out. The armchair is such a comfortable place to reason from!
 
 [^5]: Gavin got this right in his essay, though I'm confused why he thought it was hard to tell *which* tail one was in: that part seems easy to me. Determining how far down the right tail you're in seems much harder.
+
+[^6]: I'm also surprised by how unworried the philosophy friends I have seem to be about adverse selection. My impression is that being a professional philosopher was a way more appealing gig 20-30 years ago: you'd get paid a decent stipend in grad school to think about whatever you liked, if you did well, you were quite likely to get a job in philosophy academia, and this would allow you to spend your life thinking and writing and teaching, with fairly few constraints. So it makes sense that many smart philosophically-inclined people would try it out. Now, the conditions in grad school seem worse, and the prospects for a job afterwards so much more dire; and when you get the job, the restrictions are more onerous, the publication requirements more binding, the style of the discipline more of this "fiddling on the margins" thing. Also, philosophers seem quite doomy now. Conceptual analysis failed, and is there a new paradigm that's doing better? Not to my untrained eye. So, the smart philosophically-inclined people are more likely to take their outside options, often interesting well-paid jobs. You should expect current cohorts to be more full of no-hopers and diehards. Presumably, some fraction of people who would've been philosophers are now making their money in finance or quant trading or CS or law, or just pursuing other academic interests, in computer science or maths, say.
 
 [^7]: Though I might just feel bad for not being smarter; I think philosophy is a revealing way to tell how generically quick/good/clear people are. I don't think this is all of it, but it could be a large part of it.
