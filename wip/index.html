@@ -1,0 +1,31 @@
+---
+# WIP index: lists all posts in the _wip/ collection.
+# To add a new WIP post, create a .md file in _wip/ with front matter:
+#   ---
+#   date: YYYY-MM-DD
+#   title: Your draft title
+#   ---
+layout: default
+title: "WIP"
+robots: "noindex, nofollow"
+# Caveat font for the WIP title and disclaimer
+extra_head: '<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet"><style>:root { --max-width: 760px; } .wip-title { font-family: "Caveat", cursive; font-size: 2.8rem; font-weight: 700; } .wip-disclaimer { font-family: "Caveat", cursive; font-size: 1.3rem; color: var(--secondary); margin-bottom: 2rem; line-height: 1.5; } .post-list a { font-family: "Caveat", cursive; font-size: 1.3rem; }</style>'
+---
+
+<h1 class="wip-title">WIP</h1>
+<p class="wip-disclaimer">These are works in progress, stubs, or otherwise foolish posts. Inclusion doesn't imply endorsement. Also, here be dragons.</p>
+
+<!-- Loop over all WIP posts, sorted newest first -->
+<ul class="post-list">
+{% assign wip_posts = site.wip | sort: "date" | reverse %}
+{% for post in wip_posts %}
+    <li>
+        <span class="post-date">{{ post.date | date: "%Y-%m-%d" }}</span>
+        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+    </li>
+{% endfor %}
+</ul>
+
+<div class="back-link">
+    <a href="{{ '/' | relative_url }}">← Back to home</a>
+</div>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>murmuration</title>
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #080818; overflow: hidden; width: 100vw; height: 100vh; }
+        canvas { display: block; }
+
+        .back {
+            position: fixed;
+            bottom: 1.5rem;
+            left: 1.5rem;
+            color: rgba(255, 245, 220, 0.22);
+            font-family: 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: color 0.4s;
+            letter-spacing: 0.02em;
+        }
+        .back:hover { color: rgba(255, 245, 220, 0.6); }
+
+        .controls {
+            position: fixed;
+            top: 1.6rem;
+            right: 1.6rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+            color: rgba(255, 245, 220, 0.38);
+            font-family: 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+            font-size: 0.76rem;
+            letter-spacing: 0.02em;
+        }
+        .controls label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+        .controls input[type=range] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 96px;
+            height: 1px;
+            background: rgba(255, 245, 220, 0.18);
+            outline: none;
+            cursor: pointer;
+        }
+        .controls input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: rgba(255, 245, 220, 0.50);
+            cursor: pointer;
+        }
+        .controls input[type=range]::-moz-range-thumb {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255, 245, 220, 0.50);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <a href="/" class="back">← home</a>
+
+    <div class="controls">
+        <label>speed     <input type="range" id="s-speed" min="0.4" max="3.5" step="0.05"  value="1.6"></label>
+        <label>alignment <input type="range" id="s-ali"   min="0.2" max="3.5" step="0.05"  value="1.7"></label>
+        <label>cohesion  <input type="range" id="s-coh"   min="0.01" max="0.5" step="0.01" value="0.12"></label>
+        <label>separation<input type="range" id="s-sep"   min="6"   max="38"  step="1"     value="17"></label>
+        <label>drift     <input type="range" id="s-drift" min="0"   max="0.06" step="0.001" value="0.016"></label>
+    </div>
+
+    <script>
+    const canvas = document.getElementById('canvas');
+    const ctx    = canvas.getContext('2d');
+
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    resize();
+    window.addEventListener('resize', resize);
+
+    // ── Live params (sliders write directly here) ─────────────────────────
+    const P = {
+        maxSpeed:  1.6,
+        minSpeed:  0.7,
+        wAli:      1.7,
+        wCoh:      0.12,
+        sepDist:   17,
+        driftRate: 0.016,
+    };
+
+    document.getElementById('s-speed').addEventListener('input', e => {
+        P.maxSpeed = +e.target.value;
+        P.minSpeed = P.maxSpeed * 0.44;
+    });
+    document.getElementById('s-ali').addEventListener('input',   e => { P.wAli      = +e.target.value; });
+    document.getElementById('s-coh').addEventListener('input',   e => { P.wCoh      = +e.target.value; });
+    document.getElementById('s-sep').addEventListener('input',   e => { P.sepDist   = +e.target.value; });
+    document.getElementById('s-drift').addEventListener('input', e => { P.driftRate = +e.target.value; });
+
+    // ── Fixed constants ───────────────────────────────────────────────────
+    const N         = 550;
+    const K         = 7;         // topological neighbors
+    const MAX_FORCE = 0.042;     // low = gradual, smooth turns
+    const W_SEP     = 2.1;
+    const W_LCOH    = 0.55;      // local cohesion (toward K-neighbor centroid)
+    const W_GCOH    = 0.10;      // global cohesion (keeps flock as one body)
+    const MARGIN    = 105;
+    const TURN      = 0.18;
+
+    // ── Typed arrays ──────────────────────────────────────────────────────
+    const bx = new Float32Array(N);
+    const by = new Float32Array(N);
+    const vx = new Float32Array(N);
+    const vy = new Float32Array(N);
+    const ax = new Float32Array(N);
+    const ay = new Float32Array(N);
+
+    // k-nearest scratch (reused per bird per frame)
+    const kidx = new Int32Array(K);
+    const kd2  = new Float32Array(K);
+
+    // ── Init ──────────────────────────────────────────────────────────────
+    function init() {
+        const cx = canvas.width / 2, cy = canvas.height / 2;
+        const base = Math.random() * Math.PI * 2;
+        for (let i = 0; i < N; i++) {
+            bx[i] = cx + (Math.random() - 0.5) * 110;
+            by[i] = cy + (Math.random() - 0.5) * 110;
+            const a = base + (Math.random() - 0.5) * 0.5;
+            const s = P.minSpeed + Math.random() * (P.maxSpeed - P.minSpeed);
+            vx[i] = Math.cos(a) * s;
+            vy[i] = Math.sin(a) * s;
+        }
+    }
+
+    // ── K-nearest (O(N·K) per bird) ───────────────────────────────────────
+    function findKNearest(i) {
+        for (let k = 0; k < K; k++) { kd2[k] = Infinity; kidx[k] = -1; }
+        let worstVal = Infinity, worstSlot = 0;
+        for (let j = 0; j < N; j++) {
+            if (j === i) continue;
+            const dx = bx[j] - bx[i], dy = by[j] - by[i];
+            const d2 = dx*dx + dy*dy;
+            if (d2 < worstVal) {
+                kd2[worstSlot] = d2; kidx[worstSlot] = j;
+                worstVal = 0; worstSlot = 0;
+                for (let k = 0; k < K; k++) {
+                    if (kd2[k] > worstVal) { worstVal = kd2[k]; worstSlot = k; }
+                }
+            }
+        }
+    }
+
+    // ── Reynolds steering ─────────────────────────────────────────────────
+    function steer(i, tx, ty, w) {
+        const mag = Math.sqrt(tx*tx + ty*ty);
+        if (mag < 0.001) return;
+        const sc = P.maxSpeed / mag;
+        let fx = tx*sc - vx[i];
+        let fy = ty*sc - vy[i];
+        const fm = Math.sqrt(fx*fx + fy*fy);
+        if (fm > MAX_FORCE) { const r = MAX_FORCE/fm; fx *= r; fy *= r; }
+        ax[i] += fx * w;
+        ay[i] += fy * w;
+    }
+
+    // ── Slow wander: the flock's collective heading drifts sinuously ──────
+    let wanderAngle = Math.random() * Math.PI * 2;
+    let wanderVel   = 0;
+    const WANDER_STRENGTH = 0.028;
+
+    function updateWander() {
+        // Random-walk the wander direction change (so it curves, then curves back)
+        wanderVel += (Math.random() - 0.5) * 0.003;
+        wanderVel *= 0.97;  // damp to prevent runaway spinning
+        wanderAngle += wanderVel + (Math.random() - 0.5) * P.driftRate;
+    }
+
+    // ── Flock step ────────────────────────────────────────────────────────
+    function flock() {
+        updateWander();
+        const wdx = Math.cos(wanderAngle);
+        const wdy = Math.sin(wanderAngle);
+
+        // Global centroid
+        let gcx = 0, gcy = 0;
+        for (let i = 0; i < N; i++) { gcx += bx[i]; gcy += by[i]; }
+        gcx /= N; gcy /= N;
+
+        for (let i = 0; i < N; i++) {
+            findKNearest(i);
+
+            let sx = 0, sy = 0, sn = 0;
+            let alx = 0, aly = 0;
+            let lcx = 0, lcy = 0;
+
+            for (let k = 0; k < K; k++) {
+                const j = kidx[k];
+                if (j < 0) continue;
+                const dx = bx[j] - bx[i], dy = by[j] - by[i];
+                const d = Math.sqrt(dx*dx + dy*dy);
+
+                if (d < P.sepDist && d > 0) { sx -= dx/d; sy -= dy/d; sn++; }
+                alx += vx[j]; aly += vy[j];
+                lcx += bx[j]; lcy += by[j];
+            }
+
+            if (sn > 0) steer(i, sx/sn, sy/sn, W_SEP);
+            steer(i, alx/K, aly/K, P.wAli);
+            steer(i, lcx/K - bx[i], lcy/K - by[i], W_LCOH);
+            steer(i, gcx - bx[i], gcy - by[i], P.wCoh);
+
+            // Global drift — pulls the whole flock into slow curves
+            ax[i] += wdx * WANDER_STRENGTH;
+            ay[i] += wdy * WANDER_STRENGTH;
+
+            // Soft boundary
+            const w = canvas.width, h = canvas.height;
+            if (bx[i] < MARGIN)     ax[i] += TURN;
+            if (bx[i] > w - MARGIN) ax[i] -= TURN;
+            if (by[i] < MARGIN)     ay[i] += TURN;
+            if (by[i] > h - MARGIN) ay[i] -= TURN;
+        }
+    }
+
+    // ── Integrate ─────────────────────────────────────────────────────────
+    function integrate() {
+        for (let i = 0; i < N; i++) {
+            vx[i] += ax[i]; vy[i] += ay[i];
+            const s = Math.sqrt(vx[i]*vx[i] + vy[i]*vy[i]);
+            if (s > P.maxSpeed && s > 0) { const r = P.maxSpeed/s; vx[i] *= r; vy[i] *= r; }
+            else if (s < P.minSpeed && s > 0) { const r = P.minSpeed/s; vx[i] *= r; vy[i] *= r; }
+            bx[i] += vx[i]; by[i] += vy[i];
+            ax[i] = 0; ay[i] = 0;
+        }
+    }
+
+    // ── Draw ──────────────────────────────────────────────────────────────
+    function draw() {
+        // Slow fade = longer ghostly trail
+        ctx.fillStyle = 'rgba(8, 8, 24, 0.15)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = 'rgba(205, 194, 226, 0.78)';
+        ctx.beginPath();
+
+        for (let i = 0; i < N; i++) {
+            const angle = Math.atan2(vy[i], vx[i]);
+            const c = Math.cos(angle), s = Math.sin(angle);
+            const z = 3.0;
+            const x = bx[i], y = by[i];
+
+            // Swept-back chevron — computed without save/restore
+            ctx.moveTo(x + c*z,                       y + s*z);
+            ctx.lineTo(x - c*z*0.55 + s*z*0.48,      y - s*z*0.55 - c*z*0.48);
+            ctx.lineTo(x - c*z*0.18,                  y - s*z*0.18);
+            ctx.lineTo(x - c*z*0.55 - s*z*0.48,      y - s*z*0.55 + c*z*0.48);
+            ctx.closePath();
+        }
+        ctx.fill();
+    }
+
+    // ── Run ───────────────────────────────────────────────────────────────
+    init();
+    ctx.fillStyle = '#080818';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    function animate() {
+        requestAnimationFrame(animate);
+        flock();
+        integrate();
+        draw();
+    }
+    animate();
+    </script>
+</body>
+</html>

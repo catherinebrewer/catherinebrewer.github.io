@@ -1,0 +1,15 @@
+<script>
+    // Toggle between light and dark mode, and save the preference to localStorage.
+    function toggleTheme() {
+        document.documentElement.classList.toggle('dark');
+        localStorage.setItem('theme',
+            document.documentElement.classList.contains('dark') ? 'dark' : 'light'
+        );
+    }
+
+    // On page load: restore the saved theme, or follow the OS preference.
+    if (localStorage.getItem('theme') === 'dark' ||
+        (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+    }
+</script>

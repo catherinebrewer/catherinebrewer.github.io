@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Page title: uses page.title if set, falls back to site.title from _config.yml -->
+    <title>{{ page.title | default: site.title }}</title>
+
+    <!-- Optional meta tags — set these in individual page front matter -->
+    {% if page.description %}
+    <meta name="description" content="{{ page.description }}">
+    {% endif %}
+    {% if page.og_title %}
+    <meta property="og:title" content="{{ page.og_title }}">
+    {% endif %}
+    {% if page.og_description %}
+    <meta property="og:description" content="{{ page.og_description }}">
+    {% endif %}
+
+    <!-- robots: set to "noindex, nofollow" in front matter to hide a page from search engines -->
+    {% if page.robots %}
+    <meta name="robots" content="{{ page.robots }}">
+    {% endif %}
+
+    <!-- Google site verification (only on the home page via front matter) -->
+    {% if page.google_site_verification %}
+    <meta name="google-site-verification" content="{{ page.google_site_verification }}">
+    {% endif %}
+
+    <!-- Main stylesheet. To change styles, edit assets/css/style.css -->
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+
+    <!-- Any page-specific <head> content (e.g. extra fonts) goes in page.extra_head -->
+    {{ page.extra_head }}
+</head>
+<!-- page.layout is "post", "wip_post", "default", etc. — used by CSS to vary width/alignment -->
+<body class="{{ page.layout | default: 'default' }}">
+    <!-- Dark/light toggle button (defined in _includes/theme-toggle.html) -->
+    {% include theme-toggle.html %}
+
+    <main class="container">
+        {{ content }}
+    </main>
+
+    <!-- Theme persistence script (defined in _includes/theme-script.html) -->
+    {% include theme-script.html %}
+</body>
+</html>

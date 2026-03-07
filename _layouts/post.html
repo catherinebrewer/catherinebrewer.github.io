@@ -1,0 +1,23 @@
+---
+# This layout extends 'default' — it adds a post header (date + title),
+# wraps content in .post-content, and adds a back link at the bottom.
+# Used by: _daily/ collection (set via defaults in _config.yml)
+layout: default
+---
+
+<div class="post-header">
+    <!-- Date formatted as "December 29, 2024" — change the format string if you want something else -->
+    <div class="post-date-header">{{ page.date | date: "%B %d, %Y" }}</div>
+    <h1 class="post-title">{{ page.title }}</h1>
+</div>
+
+<!-- The markdown content of the post -->
+<div class="post-content">
+    {{ content }}
+</div>
+
+<!-- Back link — destination set via front matter (back_url / back_text)
+     or via defaults in _config.yml -->
+<div class="back-link">
+    <a href="{{ page.back_url | default: '/' | relative_url }}">← {{ page.back_text | default: 'Back' }}</a>
+</div>

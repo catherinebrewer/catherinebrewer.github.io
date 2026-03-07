@@ -1,0 +1,15 @@
+# Jekyll build output — don't commit this, it's regenerated on each build
+_site/
+
+# Jekyll cache — safe to delete, regenerated automatically
+.jekyll-cache/
+.jekyll-metadata
+
+# Bundler lockfile (optional to commit; committing it ensures reproducible builds)
+# Gemfile.lock
+
+# macOS cruft
+.DS_Store
+
+# Python virtualenv (for vibes/lister.py)
+vibes/venv/

@@ -1,0 +1,64 @@
+# =============================================================================
+# Jekyll configuration for catherinebrewer.github.io
+# =============================================================================
+# To change the site title/description, edit the values below.
+# To add a new page, create a .html or .md file with front matter (--- ... ---)
+# in the root directory.
+# =============================================================================
+
+title: "Catherine Brewer's site"
+description: "Catherine Brewer - Grantmaker on AI Governance and Policy"
+url: "https://catherinebrewer.github.io"
+baseurl: ""
+
+# --- Markdown settings -------------------------------------------------------
+# kramdown is GitHub Pages' default markdown renderer.
+markdown: kramdown
+kramdown:
+  input: GFM         # GitHub Flavored Markdown
+  hard_wrap: false   # Don't turn single newlines into <br> tags
+
+# --- Collections -------------------------------------------------------------
+# Collections let Jekyll process folders of markdown files as a group.
+# _daily/ → your daily writing posts (output at /daily/post-name/)
+# _wip/   → your WIP drafts (output at /wip/post-name/)
+collections:
+  daily:
+    output: true
+    permalink: /daily/:name/
+  wip:
+    output: true
+    permalink: /wip/:name/
+
+# --- Default front matter ----------------------------------------------------
+# These values are applied automatically so you don't have to repeat them
+# in every single markdown file.
+defaults:
+  # Daily posts: use the 'post' layout, link back to /daily/
+  - scope:
+      path: ""
+      type: "daily"
+    values:
+      layout: "post"
+      back_url: "/daily/"
+      back_text: "Back to daily writing"
+
+  # WIP posts: use the 'wip_post' layout, noindex, link back to /wip/
+  - scope:
+      path: ""
+      type: "wip"
+    values:
+      layout: "wip_post"
+      robots: "noindex, nofollow"
+      back_url: "/wip/"
+      back_text: "Back to WIP"
+
+# --- Build settings ----------------------------------------------------------
+# Files/folders to skip during build. The vibes/ images are static and don't
+# need Jekyll processing — they're served as-is.
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vibes/lister.py   # Python script — not part of the Jekyll build
+  - vibes/venv/       # Python virtualenv — definitely not for Jekyll

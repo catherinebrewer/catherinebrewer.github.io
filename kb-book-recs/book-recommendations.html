@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="robots" content="noindex, nofollow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catherine's Book Recommendations for Mum</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+            --text: #2c3e50;
+            --background: #fffef5;
+            --accent: #a8968a;
+            --secondary: #8b8680;
+            --link: #0000EE;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--text);
+            margin-bottom: 20px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        .subtext {
+            font-size: 1.1rem;
+            color: var(--secondary);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .book-card {
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .book-cover {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            background: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666666;
+            font-size: 1.2rem;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .book-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(44, 62, 80, 0.85);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideUp 0.3s ease;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 2rem;
+            font-weight: 300;
+            color: var(--text);
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.2s ease;
+        }
+
+        .close:hover {
+            color: var(--secondary);
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            color: var(--text);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .modal-author {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .modal-description {
+            font-size: 1.05rem;
+            color: var(--text);
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .amazon-link {
+            display: inline-block;
+            background-color: var(--text);
+            color: #ffffff;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .amazon-link:hover {
+            background-color: var(--secondary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .subtext {
+                font-size: 1rem;
+            }
+
+            .book-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .book-cover {
+                height: 280px;
+            }
+
+            .modal-content {
+                padding: 30px;
+            }
+
+            .modal-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .book-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Catherine's Recommendations for Mum, 2025</h1>
+            <p class="subtext">
+                Happy Christmas! I've done some research and reading, and here are some books I think you'll enjoy. 
+                Click on the covers to see more details about them and a link to get them.
+            </p>
+        </header>
+
+        <div class="book-grid">
+            <!-- Book 1 -->
+            <div class="book-card" onclick="openModal('modal1')">
+                <div class="book-cover">
+                    <img src="cover1.jpg" alt="Book 1 Cover">
+                </div>
+            </div>
+
+            <!-- Book 2 -->
+            <div class="book-card" onclick="openModal('modal2')">
+                <div class="book-cover">
+                    <img src="cover2.jpg" alt="Book 2 Cover">
+                </div>
+            </div>
+
+            <!-- Book 3 -->
+            <div class="book-card" onclick="openModal('modal3')">
+                <div class="book-cover">
+                    <img src="cover3.jpg" alt="Book 3 Cover">
+                </div>
+            </div>
+
+            <!-- Book 4 -->
+            <div class="book-card" onclick="openModal('modal4')">
+                <div class="book-cover">
+                    <img src="cover4.jpg" alt="Book 4 Cover">
+                </div>
+            </div>
+
+            <!-- Book 5 -->
+            <div class="book-card" onclick="openModal('modal5')">
+                <div class="book-cover">
+                    <img src="cover5.jpg" alt="Book 5 Cover">
+                </div>
+            </div>
+
+            <!-- Book 6 -->
+            <div class="book-card" onclick="openModal('modal6')">
+                <div class="book-cover">
+                    <img src="cover6.jpg" alt="Book 6 Cover">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals for each book -->
+    <div id="modal1" class="modal" onclick="closeModalOnBackdrop(event, 'modal1')">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal1')">&times;</span>
+            <h2 class="modal-title">Everything Is Tuberculosis</h2>
+            <p class="modal-author">by John Green</p>
+            <p class="modal-description">
+                John Green's story of Henry, a boy he meets, and the history of humanity overcoming tuberculosis. One of my favourite science books this year.
+            </p>
+            <a href="https://www.amazon.co.uk/Everything-Tuberculosis-Persistence-Deadliest-Infection-ebook/dp/B0DP68X8DN" class="amazon-link" target="_blank">View on Amazon UK</a>
+        </div>
+    </div>
+
+    <div id="modal2" class="modal" onclick="closeModalOnBackdrop(event, 'modal2')">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal2')">&times;</span>
+            <h2 class="modal-title">The Britannias</h2>
+            <p class="modal-author">by Alice Albinia</p>
+            <p class="modal-description">
+                A history and travelogue of Britain's islands. I thought you'd enjoy this especially given Jersey!
+            </p>
+            <a href="https://www.amazon.co.uk/Britannias-Island-Quest-Alice-Albinia/dp/0241669634" class="amazon-link" target="_blank">View on Amazon UK</a>
+        </div>
+    </div>
+
+    <div id="modal3" class="modal" onclick="closeModalOnBackdrop(event, 'modal3')">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal3')">&times;</span>
+            <h2 class="modal-title">Material World</h2>
+            <p class="modal-author">by Ed Conway</p>
+            <p class="modal-description">
+               A history of the world and of global politics via six substances: sand, salt, iron, copper, oil, and lithium. I haven't gotten a chance to read this myself, but I've heard it highly recommended for fans of Prisoners of Geography and of Breakneck. 
+
+            </p>
+            <a href="https://www.amazon.co.uk/Material-World-Substantial-Story-Future/dp/0753559153/" class="amazon-link" target="_blank">View on Amazon UK</a>
+        </div>
+    </div>
+
+    <div id="modal4" class="modal" onclick="closeModalOnBackdrop(event, 'modal4')">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal4')">&times;</span>
+            <h2 class="modal-title">Crashed</h2>
+            <p class="modal-author">by Adam Tooze</p>
+            <p class="modal-description">
+                Adam Tooze is kind of insane but in a fun way; if you want something to chew on, this big history of the 2008 financial crisis will do the trick!            </p>
+            <a href="https://www.amazon.co.uk/Crashed-Decade-Financial-Crises-Changed/dp/0670024937" class="amazon-link" target="_blank">View on Amazon UK</a>
+        </div>
+    </div>
+
+    <div id="modal5" class="modal" onclick="closeModalOnBackdrop(event, 'modal5')">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal5')">&times;</span>
+            <h2 class="modal-title">Say Nothing</h2>
+            <p class="modal-author">by Patrick Radden Keefe</p>
+            <p class="modal-description">
+                By the same author as Empire of Pain, a history of the Troubles. Probably not the cheeriest read, but I remembered how much you enjoyed Empire of Pain and thought you would also like this.
+
+            </p>
+            <a href="https://www.amazon.co.uk/Say-Nothing-Murder-Northern-Ireland/dp/0008159254" class="amazon-link" target="_blank">View on Amazon UK</a>
+        </div>
+    </div>
+
+    <div id="modal6" class="modal" onclick="closeModalOnBackdrop(event, 'modal6')">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal6')">&times;</span>
+            <h2 class="modal-title">Annals of the Former World</h2>
+            <p class="modal-author">John McPhee</p>
+            <p class="modal-description">
+                John McPhee won the Pulitzer Prize for this, a story of the geological formation of North America across 4.6 billion years. It has some of the loveliest prose I've found in non-fiction, and (despite what you might expect) is fascinating throughout.
+
+            </p>
+            <a href="https://www.amazon.co.uk/Annals-Former-World-John-McPhee/dp/0374518734" class="amazon-link" target="_blank">View on Amazon UK</a>
+        </div>
+    </div>
+
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function closeModalOnBackdrop(event, modalId) {
+            if (event.target.classList.contains('modal')) {
+                closeModal(modalId);
+            }
+        }
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const activeModal = document.querySelector('.modal.active');
+                if (activeModal) {
+                    activeModal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+---
+# Like the 'post' layout but with the Caveat handwriting font for the title.
+# Used by: _wip/ collection (set via defaults in _config.yml)
+layout: default
+---
+
+<!-- Load Caveat font (Google Fonts) just for WIP posts -->
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap');
+    /* WIP post title uses Caveat for that "draft / handwritten" feel */
+    .post-title {
+        font-family: 'Caveat', cursive;
+        font-size: 2.4rem;
+        font-weight: 700;
+    }
+</style>
+
+<div class="post-header">
+    <div class="post-date-header">{{ page.date | date: "%B %d, %Y" }}</div>
+    <h1 class="post-title">{{ page.title }}</h1>
+</div>
+
+<div class="post-content">
+    {{ content }}
+</div>
+
+<div class="back-link">
+    <a href="{{ page.back_url | default: '/wip/' | relative_url }}">← {{ page.back_text | default: 'Back to WIP' }}</a>
+</div>
