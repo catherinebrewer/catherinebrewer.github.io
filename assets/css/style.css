@@ -44,9 +44,9 @@ body.post {
     padding-top: 4rem;
 }
 
-/* WIP posts — longer essays, deserve more room */
+/* WIP posts */
 body.wip_post {
-    --max-width: 820px;
+    --max-width: 700px;
     align-items: flex-start;
     padding-top: 4rem;
 }
@@ -439,38 +439,9 @@ a:hover {
     }
 }
 
-/* =============================================================================
-   Sidenotes (Tufte-style)
-   sidenotes.html measures available space to the right of the text column and,
-   if there's room, appends absolutely-positioned sidenote divs to <body>.
-   On narrow screens nothing changes — footnotes stay at the bottom as normal.
-   ============================================================================= */
-
-.sidenote {
-    position: absolute;
-    font-size: 0.78rem;
-    line-height: 1.45;
-    color: var(--secondary);
-    overflow-wrap: break-word;
-}
-
-.sidenote .sidenote-num {
-    font-size: 0.85em;
-    vertical-align: super;
-    line-height: 0;
-    margin-right: 0.15em;
-}
-
-.sidenote a {
-    color: var(--link);
-}
-
-/* Highlight sidenote when hovering over its in-text reference */
-.sidenote.sidenote-highlight {
-    color: var(--text);
-}
-
-/* Hide the bottom footnote list when sidenotes are active */
-.footnotes.sidenotes-active {
-    display: none;
+/* --- Footnotes ------------------------------------------------------------- */
+.footnotes {
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--secondary);
 }

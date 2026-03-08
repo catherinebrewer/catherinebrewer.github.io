@@ -1,5 +1,5 @@
 ---
-date: 2025-12-29
+date: 2025-11-26
 title: Goodness vs niceness
 ---
 

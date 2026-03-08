@@ -13,6 +13,23 @@ layout: default
         font-size: 2.4rem;
         font-weight: 700;
     }
+    /* Replace the straight border under the title with a hand-drawn wavy line */
+    body.wip_post .post-header {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+    body.wip_post .post-header::after {
+        content: '';
+        display: block;
+        height: 8px;
+        margin-top: 1rem;
+        background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='8' viewBox='0 0 600 8'><path d='M0,4.5 C150,3.5 300,5 450,3.8 C520,3.4 570,4.5 600,4' stroke='%238b8680' stroke-width='1' fill='none' stroke-linecap='round'/></svg>");
+        background-repeat: repeat-x;
+        background-size: 600px 8px;
+    }
+    :root.dark body.wip_post .post-header::after {
+        background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='8' viewBox='0 0 600 8'><path d='M0,4.5 C150,3.5 300,5 450,3.8 C520,3.4 570,4.5 600,4' stroke='%23a8a098' stroke-width='1' fill='none' stroke-linecap='round'/></svg>");
+    }
 </style>
 
 <div class="post-header">

@@ -84,7 +84,7 @@ There's an anecdote I've told people, though I worry I'm misremembering it, but 
 
 My suspicion is that professional philosophy makes it harder to do really useful work, at least by my lights. Prima facie, this seems like it needn't be the case: I think there is lots of important, useful work to be done in macrostrategy and futurism and even, whisper it, the far-flung reaches of ethics and decision theory, and this work shares many similarities with philosophy. But it seems that professional philosophy makes doing this harder.
 
-(My guesses at why: well, you have to publish; the discipline valorises puzzle-solving and games with words rather than fuzzy big-picture things; it's aesthetically less clean and neat; sometimes it touches the real world; none of your grad student friends will talk about it with you; it's socially lower-status. And philosophy is close enough, in skills and values and aims, that I think it's easy to get swept up in it, or to stop looking for other goals. But they really do diverge.[6])
+(My guesses at why: well, you have to publish; the discipline valorises puzzle-solving and games with words rather than fuzzy big-picture things; it's aesthetically less clean and neat; sometimes it touches the real world; none of your grad student friends will talk about it with you; it's socially lower-status. And philosophy is close enough, in skills and values and aims, that I think it's easy to get swept up in it, or to stop looking for other goals. But they really do diverge.[^6])
 
 I think many people who are good at philosophy and care somewhat about impact have philosophy in their top 2 or 3 careers. The thought is, go do the thing you're exemplary at and love, and pick the important topics within it. But I think philosophy has this adverse effect on how one thinks and what one thinks about, and so I want these people to have it as more like a top 10 option.
 
@@ -96,7 +96,6 @@ So, apply the necessary scepticism. But I really think it's not just sour grapes
 
 I'm with [Cato](https://penelope.uchicago.edu/Thayer/e/roman/texts/plutarch/lives/Cato_major*.html) on this one, but for different reasons. And try not to feel too bad about it: once we've solved the world's problems, we can go back to the [truth mines](https://en.wikipedia.org/wiki/Diaspora_(novel)) and inquire into the fundamental nature of Knowledge.
 
-***
 
 [^1]: Besides gainful employment. (I don't think it's *just* gainful employment that did the work.)
 
