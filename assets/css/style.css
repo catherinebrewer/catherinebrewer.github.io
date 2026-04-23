@@ -16,7 +16,7 @@
    Change these variables to retheme the whole site at once. */
 :root {
     --text: #2c3e50;
-    --background: #fffef5;
+    --background: #FFFCF0;
     --accent: #a8968a;
     --secondary: #8b8680;
     --link: #0000EE;
@@ -55,7 +55,7 @@ body.wip_post {
 html {
     font-size: 18px;
     line-height: 1;
-    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-family: serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
