@@ -1,7 +1,6 @@
-
 ---
-title: Book review: Terra Ignota
-
+date: 2026-04-26
+title: "Book review: Terra Ignota"
 ---
 
 (I've read 2 of the 4 books, the others TBR. I might update this once I've finished the whole series.)
