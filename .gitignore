@@ -13,3 +13,6 @@ _site/
 
 # Python virtualenv (for vibes/lister.py)
 vibes/venv/
+
+# Personal notes — kept locally, not part of the site
+instructions for blog posts.md
