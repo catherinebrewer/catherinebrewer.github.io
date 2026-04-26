@@ -55,9 +55,8 @@ body.wip_post {
 html {
     font-size: 18px;
     line-height: 1;
-    font-family: serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    font-family: Baskerville, "Baskerville Old Face", "Hoefler Text", Georgia, serif;
+    text-rendering: optimizeLegibility;
 }
 
 body {
@@ -145,6 +144,15 @@ p {
     margin-bottom: 1rem;
     font-size: 1.05rem;
     line-height: 1.7;
+}
+
+/* Long-form prose polish: hyphenate to keep the right edge tidy at narrow
+   column widths, and use old-style figures (descend below the baseline) so
+   numerals in running text don't shout. */
+p, .post-content li {
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    font-variant-numeric: oldstyle-nums proportional-nums;
 }
 
 /* --- Links ----------------------------------------------------------------- */
