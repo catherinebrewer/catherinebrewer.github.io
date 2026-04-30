@@ -9,6 +9,7 @@ layout: default
     <!-- Date formatted as "December 29, 2024" — change the format string if you want something else -->
     <div class="post-date-header">{{ page.date | date: "%B %d, %Y" }}</div>
     <h1 class="post-title">{{ page.title }}</h1>
+    {% if page.subtitle %}<p class="post-subtitle">{{ page.subtitle }}</p>{% endif %}
 </div>
 
 <!-- The markdown content of the post -->
