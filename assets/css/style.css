@@ -336,26 +336,32 @@ a:hover {
 }
 
 /* --- Home page headshot layout ---------------------------------------------
-   Image sits to the left of the bio text in a flex row.
-   On narrow screens it stacks vertically. */
+   The figure floats left so the bio text wraps around it: the first lines sit
+   beside the photo, then the text reclaims the full column width once it
+   clears the bottom of the image.
+   On narrow screens it stacks vertically instead (see media query below). */
 .home-intro {
-    display: flex;
-    gap: 2rem;
-    align-items: stretch;       /* both columns grow to the same height */
     margin-bottom: 0;
 }
 
+/* Clearfix — stops the nav links from riding up alongside the floated photo */
+.home-intro::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
 .headshot-figure {
-    flex-shrink: 0;
+    float: left;
+    width: 180px;
+    /* right margin is the gutter between photo and the text flowing beside it */
+    margin: 0.35rem 1.6rem 0.6rem 0;
     text-align: center;
-    display: flex;
-    flex-direction: column;     /* image on top, caption below */
 }
 
 .headshot-figure img {
-    width: 130px;
-    flex: 1;                    /* fill the figure's height (= text column height) */
-    min-height: 0;              /* allow flex shrinking below natural image size */
+    width: 100%;
+    aspect-ratio: 4 / 5;        /* standard portrait crop */
     object-fit: cover;
     object-position: center top;
     border-radius: 4px;
@@ -367,14 +373,22 @@ a:hover {
     color: var(--secondary);
     font-style: italic;
     margin-top: 0.4rem;
-    max-width: 130px;
     line-height: 1.3;
 }
 
-/* Stack on mobile — image goes below text */
+/* Stack on mobile — image goes below text.
+   Flex overrides the float (floats are ignored on flex items), so the photo
+   drops out of the text flow rather than squeezing it into a narrow column. */
 @media (max-width: 768px) {
     .home-intro {
+        display: flex;
         flex-direction: column-reverse;
+        align-items: center;
+    }
+
+    .headshot-figure {
+        float: none;
+        margin: 0.5rem 0 0;
     }
 }
 
