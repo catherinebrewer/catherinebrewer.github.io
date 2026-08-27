@@ -115,7 +115,12 @@ fetch("image_widths_heights.json").then(f => {
 
         // Create the image
         let img = document.createElement("img");
-        img.src = key_values[i][0];
+        // Serve the small WebP copy from thumbs/ (made by make_thumbs.py). If there
+        // isn't one -- animated gifs, images already small enough, anything added
+        // since the last run -- fall back to the original file.
+        let original = key_values[i][0];
+        img.onerror = () => { img.onerror = null; img.src = original; };
+        img.src = "thumbs/" + original + ".webp";
         img.width = pairs[i][0];
         img.height = pairs[i][1];
         img.style.width = pairs[i][0];
@@ -124,6 +129,7 @@ fetch("image_widths_heights.json").then(f => {
         img.style.top = positions[i][1];
         img.style.left = positions[i][0];
         img.loading = "lazy";
+        img.decoding = "async";
         container.appendChild(img);
 
         i++;
