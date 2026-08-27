@@ -45,7 +45,10 @@ fetch("image_widths_heights.json").then(f => {
         return [parseInt(w/2), parseInt(h/2)];
     }).map(([w, h]) => [(w+10) > screen_width ? screen_width-10 : w, h]);
 
-    // gather all the text nodes so the images don't intersect them
+    // gather all the text nodes so the images don't intersect them. The images are
+    // absolutely positioned, so they never push the text around -- measure each one
+    // once up front rather than re-measuring inside the placement loop, which would
+    // force the browser to redo layout thousands of times.
     const textNodes = [];
     const treeWalker = document.createTreeWalker(
         document.body,
@@ -54,14 +57,25 @@ fetch("image_widths_heights.json").then(f => {
     );
     while(treeWalker.nextNode()) textNodes.push(treeWalker.currentNode);
 
+    const textBoxes = textNodes.map(node => {
+        const range = document.createRange();
+        range.selectNodeContents(node);
+        const rect = range.getBoundingClientRect();
+        return {
+            left: rect.left + window.pageXOffset,
+            top: rect.top + window.pageYOffset,
+            right: rect.left + window.pageXOffset + rect.width,
+            bottom: rect.top + window.pageYOffset + rect.height,
+        };
+    });
+
     // Now we attempt to place images. I looked at some actually good algorithms but decided to instead use a stupid
     // algorithm: for each image, attempt to place it in a random location up to height 600. if it intersects with
     // any other images, try again. If after 50 attempts at random placing we don't manage to place it, increase the
     // height by 50.
     let positions = [];
-    let i = 0;
-    // this could be a for loop, but i thought it would be fun to have them appear gradually.
-    let interval = setInterval(() => {
+    const fragment = document.createDocumentFragment();
+    for (let i = 0; i < key_values.length; i++) {
         let height = 600;
         let [w, h] = pairs[i];
         while (1) {
@@ -86,15 +100,9 @@ fetch("image_widths_heights.json").then(f => {
                     }
                 }
 
-                // do intersection checks against text. TOCONSIDER: cache bounding rect calculation?
-                for (const node of textNodes) {
-                    const range = document.createRange();
-                    range.selectNodeContents(node);
-                    const rect = range.getBoundingClientRect();
-                    let node_top = rect.top + window.pageYOffset;
-                    let node_left = rect.left + window.pageXOffset;
-                    
-                    if (a_left < (node_left+rect.width) && a_right > node_left && a_bottom > node_top && a_top < (node_top+rect.height)) {
+                // do intersection checks against text, using the rects measured above
+                for (const box of textBoxes) {
+                    if (a_left < box.right && a_right > box.left && a_bottom > box.top && a_top < box.bottom) {
                         intersects = true;
                         break;
                     }
@@ -130,13 +138,11 @@ fetch("image_widths_heights.json").then(f => {
         img.style.left = positions[i][0];
         img.loading = "lazy";
         img.decoding = "async";
-        container.appendChild(img);
+        fragment.appendChild(img);
+    }
 
-        i++;
-        if (i == key_values.length) {
-            clearInterval(interval);
-        }
-    }, 100);
+    // one append, so the browser lays the page out once instead of 156 times
+    container.appendChild(fragment);
 })
     </script>
 </html>
