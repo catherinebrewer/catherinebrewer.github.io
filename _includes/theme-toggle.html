@@ -1,6 +1,7 @@
-<!-- Dark/light mode toggle button (top-right corner, fixed position).
-     The ◐ symbol switches to ◑ dynamically via JS — or you can change it here.
-     Styling is in assets/css/style.css under .theme-toggle -->
-<button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
-    <span class="theme-icon">◐</span>
+<!-- Dark/light mode toggle: a plain text button sitting in the normal document
+     flow at the top of the page, so it stays left aligned with the content.
+     The label is set by JS on load (see theme-script.html); the value below is
+     just the pre-JS fallback. Styling lives in style.css under .theme-toggle -->
+<button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle light or dark mode">
+    <span class="theme-label">dark mode</span>
 </button>

@@ -33,18 +33,19 @@
 
     <!-- Any page-specific <head> content (e.g. extra fonts) goes in page.extra_head -->
     {{ page.extra_head }}
+
+    <!-- Theme script runs in <head>, before first paint, so a dark-mode
+         visitor never sees a white flash. -->
+    {% include theme-script.html %}
 </head>
 <!-- page.layout is "post", "wip_post", "default", etc. — used by CSS to vary width/alignment -->
 <body class="{{ page.layout | default: 'default' }}">
-    <!-- Dark/light toggle button (defined in _includes/theme-toggle.html) -->
-    {% include theme-toggle.html %}
-
     <main class="container">
+        <!-- Dark/light toggle button (defined in _includes/theme-toggle.html) -->
+        {% include theme-toggle.html %}
+
         {{ content }}
     </main>
-
-    <!-- Theme persistence script (defined in _includes/theme-script.html) -->
-    {% include theme-script.html %}
 
 </body>
 </html>

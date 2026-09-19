@@ -1,469 +1,293 @@
 /* =============================================================================
-   Main stylesheet for catherinebrewer.github.io (Jekyll version)
+   catherinebrewer.github.io — minimal stylesheet
    =============================================================================
-   This is the single CSS file used across all pages via the default layout.
-   To change the colour scheme, edit the --variable values in :root / :root.dark.
-   To change the font, edit the font-family in html {}.
+   One file, used by every Jekyll page via _layouts/default.html.
+
+   Design rules, if you're editing:
+     - white and blue, nothing else
+     - left aligned, flush to a single column
+     - as little CSS as will do the job; no animations, no decoration
+
+   To retheme, change the variables in :root (light) and :root.dark.
+   To change the font, change --font.
    ============================================================================= */
 
+/* --- Palette ---------------------------------------------------------------
+   Light: white page, near-black blue-tinted text, strong blue links. */
+:root {
+    --text: #10151c;
+    --background: #ffffff;
+    --secondary: #5a6b7d;   /* muted blue-grey: dates, captions, rules */
+    --link: #0b4fd4;
+    --rule: #dbe3ec;        /* hairlines */
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    --max-width: 34rem;
+    --gutter: 2.5rem;
+}
+
+/* Dark: deep navy rather than grey, so it stays in the blue family. */
+:root.dark {
+    --text: #e6edf5;
+    --background: #0d1219;
+    --secondary: #8fa3b8;
+    --link: #79aaff;
+    --rule: #22303f;
+}
+
+/* --- Base ------------------------------------------------------------------ */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* --- Colour palette (light mode) -------------------------------------------
-   Change these variables to retheme the whole site at once. */
-:root {
-    --text: #2c3e50;
-    --background: #FFFCF0;
-    --accent: #a8968a;
-    --secondary: #8b8680;
-    --link: #0000EE;
-    --max-width: 660px;
-}
-
-/* --- Colour palette (dark mode) -------------------------------------------- */
-:root.dark {
-    --text: #e8e6e3;
-    --background: #2a2826;
-    --accent: #9b8b7e;
-    --secondary: #a8a098;
-    --link: #8AB4F8;
-}
-
-/* --- Per-layout width and alignment overrides ------------------------------
-   The body gets a class matching the layout name (set in _layouts/default.html).
-   This lets post pages be wider and top-aligned while the home page stays
-   compact and centred. To change the width of a section, edit here. */
-
-/* Daily posts */
-body.post {
-    --max-width: 720px;
-    align-items: flex-start; /* start from top, not vertically centred */
-    padding-top: 4rem;
-}
-
-/* WIP posts */
-body.wip_post {
-    --max-width: 700px;
-    align-items: flex-start;
-    padding-top: 4rem;
-}
-
-/* --- Base typography -------------------------------------------------------- */
 html {
-    font-size: 20px;
-    line-height: 1;
-    font-family: Baskerville, "Baskerville Old Face", "Hoefler Text", Georgia, serif;
-    text-rendering: optimizeLegibility;
+    font-family: var(--font);
+    font-size: 18px;
+    -webkit-text-size-adjust: 100%;
 }
 
 body {
     color: var(--text);
     background: var(--background);
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    transition: background 0.3s ease, color 0.3s ease;
-    position: relative;
-    overflow-x: hidden;
+    line-height: 1.6;
+    padding: var(--gutter);
+    /* Left aligned: the column sits against the left gutter, not centred. */
+    text-align: left;
 }
 
-body::before {
-    display: none;
-}
-
-/* --- Main content container ------------------------------------------------
-   Controls the max width of all page content.
-   Change --max-width in :root to widen/narrow the content column. */
 .container {
     max-width: var(--max-width);
     width: 100%;
-    position: relative;
-    z-index: 1;
 }
 
-/* --- Headings -------------------------------------------------------------- */
+/* --- Headings --------------------------------------------------------------
+   Bold weight rather than size does most of the work, which keeps the page
+   quiet. h1 is only slightly larger than body text on purpose. */
 h1 {
-    font-size: 2rem;
-    font-weight: 400;
-    line-height: 1.2;
-    margin-bottom: 0.5rem;
-    letter-spacing: -0.02em;
-    display: inline-block;
-    transition: transform 0.5s ease;
-}
-
-/* Fun wiggle on hover — remove if you want it more serious */
-h1:hover {
-    animation: wiggle 0.5s ease-in-out;
-}
-
-@keyframes wiggle {
-    0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(-2deg); }
-    75% { transform: rotate(2deg); }
+    font-size: 1.35rem;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 1.2rem;
 }
 
 h2 {
-    font-size: 1.5rem;
-    font-weight: 400;
-    line-height: 1.3;
-    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
     margin-top: 2rem;
-    letter-spacing: -0.01em;
+    margin-bottom: 0.6rem;
 }
 
 h3 {
-    font-size: 1.2rem;
-    font-weight: 400;
-    line-height: 1.3;
-    margin-bottom: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
     margin-top: 1.5rem;
+    margin-bottom: 0.4rem;
 }
 
-/* --- Body text ------------------------------------------------------------- */
-.subtitle {
-    color: var(--secondary);
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
-    font-style: italic;
-}
-
-/* .bio is used on the home page paragraphs */
-.bio {
-    margin-bottom: 1rem;
-    font-size: 1.05rem;
-    line-height: 1.7;
-}
-
+/* --- Text ------------------------------------------------------------------ */
 p {
     margin-bottom: 1rem;
-    font-size: 1.05rem;
-    line-height: 1.7;
 }
 
-/* Long-form prose polish: hyphenate to keep the right edge tidy at narrow
-   column widths, and use old-style figures (descend below the baseline) so
-   numerals in running text don't shout. */
-p, .post-content li {
-    hyphens: auto;
-    -webkit-hyphens: auto;
-    font-variant-numeric: oldstyle-nums proportional-nums;
+/* Lists.
+   NOTE: the global `* { padding: 0 }` reset above strips the browser's default
+   padding-left on <ul>/<ol>, which is what makes room for the marker. The
+   padding-left here restores it — don't swap it for margin-left, and keep this
+   rule global rather than scoped to .post-content, or bullets on plain pages
+   like /projects/ hang off the left edge of the column. */
+ul, ol {
+    padding-left: 1.4rem;
+    margin-bottom: 1rem;
 }
 
-/* --- Links ----------------------------------------------------------------- */
+li > ul,
+li > ol {
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
+}
+
+small, .muted {
+    color: var(--secondary);
+    font-size: 0.85rem;
+}
+
+/* --- Links -----------------------------------------------------------------
+   Underlined by default. On a low-CSS site the underline is the affordance;
+   removing it and adding it back on hover just hides where you can click. */
 a {
     color: var(--link);
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.2s ease;
-    padding-bottom: 2px;
+    text-decoration: underline;
+    text-underline-offset: 2px;
 }
 
 a:hover {
-    border-bottom-color: var(--link);
-}
-
-/* --- Navigation link row (home page) --------------------------------------- */
-.links {
-    color: var(--link);
-    display: flex;
-    gap: 2rem;
-    margin-bottom: 3rem;
-    font-size: 0.95rem;
-}
-
-.links a {
-    color: var(--link);
     text-decoration: none;
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.2s ease;
-    padding-bottom: 2px;
 }
 
-.links a:hover {
-    border-bottom-color: var(--link);
+/* --- Home page nav row -----------------------------------------------------
+   Inline list separated by middots; wraps on narrow screens without a
+   media query because it's just inline text. */
+/* Flex (not plain inline text) so the whitespace between the <a> tags in the
+   HTML source doesn't land on one side of the separator only — with gap, the
+   spacing either side of each dot is identical. Wraps on narrow screens for
+   free. */
+.links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.8rem;
+    font-size: 0.9rem;
 }
 
-/* --- Post list (daily writing, WIP index) ---------------------------------- */
-/* A plain <ul> with no bullets, used to list posts by date */
+.links a + a::before {
+    content: "·";
+    color: var(--secondary);
+    display: inline-block;
+    margin-right: 0.5rem;
+    text-decoration: none;
+}
+
+/* --- Post lists (WIP index, any future index) ------------------------------ */
 .post-list {
     list-style: none;
-    margin-top: 2rem;
+    padding-left: 0;     /* overrides the global ul rule above */
+    margin-top: 1.5rem;
 }
 
 .post-list li {
-    margin-bottom: 1.2rem;
-    font-size: 1.05rem;
-    line-height: 1.7;
+    margin-bottom: 0.5rem;
 }
 
-/* The date prefix, e.g. "2024-12-29" — styled in muted colour, monospaced digits */
 .post-date {
     color: var(--secondary);
-    font-size: 0.95rem;
-    margin-right: 1rem;
     font-variant-numeric: tabular-nums;
+    font-size: 0.85rem;
+    margin-right: 0.75rem;
 }
 
-/* --- Individual post styling ------------------------------------------------ */
-/* The header block at the top of each post (date + title) */
+/* --- Individual posts ------------------------------------------------------ */
 .post-header {
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--secondary);
+    margin-bottom: 1.8rem;
 }
 
 .post-date-header {
     color: var(--secondary);
-    font-size: 0.95rem;
-    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+    margin-bottom: 0.3rem;
 }
 
 .post-title {
-    font-size: 1.8rem;
-    font-weight: 400;
+    font-size: 1.35rem;
+    font-weight: 600;
     line-height: 1.3;
     margin-bottom: 0;
 }
 
-/* The body of a post */
-.post-content {
-    margin-top: 2rem;
-}
-
-/* Lists inside posts.
-   IMPORTANT: the global `* { padding: 0 }` reset strips the browser's default
-   padding-left on <ul>, which is what creates space for the bullet marker.
-   We restore it here with padding-left — do not change this to margin-left
-   or bullets will be clipped/invisible. */
-
-/* Top-level lists */
-.post-content ul {
-    list-style: disc;
-    padding-left: 1.5rem;
-    margin-bottom: 1rem;
-}
-
-.post-content ol {
-    padding-left: 1.5rem;
-    margin-bottom: 1rem;
-}
-
-/* Nested lists — Google Docs-style clean indentation.
-   No vertical line; just indent and change markers per level. */
-.post-content li > ul,
-.post-content li > ol {
-    padding-left: 1.5rem;
-    margin-left: 0.2rem;
+.post-subtitle {
+    color: var(--secondary);
     margin-top: 0.3rem;
-    margin-bottom: 0.1rem;
 }
-
-/* Ordered list sub-levels: 1 → a → i */
-.post-content ol ol { list-style-type: lower-alpha; }
-.post-content ol ol ol { list-style-type: lower-roman; }
-
-/* Unordered list sub-levels: disc → circle */
-.post-content ul ul { list-style-type: circle; }
 
 .post-content li {
-    margin-bottom: 0.4rem;
-    line-height: 1.6;
-    font-size: 1.05rem;
+    margin-bottom: 0.3rem;
 }
 
-/* Blockquotes — used for pull quotes, epigraphs, etc. */
 .post-content blockquote {
-    border-left: 2px solid var(--accent);
-    padding: 0.2rem 0 0.2rem 1.5rem;
-    margin: 1.5rem 0;
+    border-left: 2px solid var(--rule);
+    padding-left: 1rem;
+    margin: 1.2rem 0;
     color: var(--secondary);
-    font-style: italic;
 }
 
-.post-content blockquote p {
-    margin-bottom: 0.4rem;
-}
-
-.post-content blockquote p:last-child {
-    margin-bottom: 0;
-}
-
-/* Images inside posts */
 .post-content img {
-    max-width: 580px;
+    max-width: 100%;
     height: auto;
     display: block;
-    margin: 1rem 0;
+    margin: 1.2rem 0;
 }
 
-/* --- Back link (bottom of posts and secondary pages) ----------------------- */
+.post-content hr {
+    border: 0;
+    border-top: 1px solid var(--rule);
+    margin: 2rem 0;
+}
+
+.post-content code {
+    font-size: 0.9em;
+    background: var(--rule);
+    padding: 0.1em 0.3em;
+    border-radius: 2px;
+}
+
+.post-content pre {
+    background: var(--rule);
+    padding: 0.8rem;
+    overflow-x: auto;
+    margin-bottom: 1rem;
+}
+
+.post-content pre code {
+    background: none;
+    padding: 0;
+}
+
+/* --- Back link -------------------------------------------------------------- */
 .back-link {
-    margin-top: 3rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--secondary);
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+    font-size: 0.9rem;
 }
 
-/* --- Dark/light mode toggle button (top-right corner) ---------------------- */
+/* --- Footnotes -------------------------------------------------------------- */
+.footnotes {
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+    font-size: 0.9rem;
+    color: var(--secondary);
+}
+
+/* --- Theme toggle -----------------------------------------------------------
+   A plain text button in the normal document flow, above the content, so it
+   stays left aligned with everything else. No fixed positioning, no circle. */
 .theme-toggle {
-    position: fixed;
-    top: 2rem;
-    right: 2rem;
-    background: transparent;
-    border: 1px solid var(--secondary);
-    color: var(--text);
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
+    background: none;
+    border: 0;
+    padding: 0;
+    margin-bottom: 1.5rem;
+    font: inherit;
+    font-size: 0.85rem;
+    color: var(--secondary);
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    transition: all 0.3s ease;
-    z-index: 10;
+    text-decoration: underline;
+    text-underline-offset: 2px;
 }
 
 .theme-toggle:hover {
-    background: var(--text);
-    color: var(--background);
-    transform: scale(1.05);
+    color: var(--link);
 }
 
-/* --- Home page headshot layout ---------------------------------------------
-   The figure floats left so the bio text wraps around it: the first lines sit
-   beside the photo, then the text reclaims the full column width once it
-   clears the bottom of the image.
-   On narrow screens it stacks vertically instead (see media query below). */
-.home-intro {
-    margin-bottom: 0;
-}
-
-/* Clearfix — stops the nav links from riding up alongside the floated photo */
-.home-intro::after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-.headshot-figure {
-    float: left;
-    width: 180px;
-    /* right margin is the gutter between photo and the text flowing beside it */
-    margin: 0.35rem 1.6rem 0.6rem 0;
-    text-align: center;
-}
-
-.headshot-figure img {
-    width: 100%;
-    aspect-ratio: 4 / 5;        /* standard portrait crop */
-    object-fit: cover;
-    object-position: center top;
-    border-radius: 4px;
-    display: block;
-}
-
-.headshot-caption {
-    font-size: 0.78rem;
-    color: var(--secondary);
-    font-style: italic;
-    margin-top: 0.4rem;
-    line-height: 1.3;
-}
-
-/* Stack on mobile — image goes below text.
-   Flex overrides the float (floats are ignored on flex items), so the photo
-   drops out of the text flow rather than squeezing it into a narrow column. */
-@media (max-width: 768px) {
-    .home-intro {
-        display: flex;
-        flex-direction: column-reverse;
-        align-items: center;
-    }
-
-    .headshot-figure {
-        float: none;
-        margin: 0.5rem 0 0;
-    }
-}
-
-/* --- Optional circular profile photo (old, kept for reference) ------------- */
-.photo {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    margin-bottom: 2rem;
-    object-fit: cover;
-    filter: grayscale(100%);
-    transition: filter 0.3s ease;
-}
-
-.photo:hover {
-    filter: grayscale(0%);
-}
-
-/* --- Footer ---------------------------------------------------------------- */
-.footer {
-    position: fixed;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 0.75rem;
-    color: var(--secondary);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-}
-
-/* --- Mobile responsive ----------------------------------------------------- */
+/* --- Mobile ------------------------------------------------------------------ */
 @media (max-width: 600px) {
+    :root {
+        --gutter: 1.25rem;
+    }
+
     html {
-        font-size: 18px;
-    }
-
-    body {
-        padding-top: 5rem; /* push content below the fixed toggle button */
-    }
-
-    h1 {
-        font-size: 1.8rem;
-    }
-
-    .theme-toggle {
-        top: 1rem;
-        right: 1rem;
-    }
-
-    .art {
-        right: -30%;
-        opacity: 0.05;
-    }
-
-    /* Wrap nav links on small screens */
-    .links {
-        flex-wrap: wrap;
-        gap: 1rem;
+        font-size: 17px;
     }
 }
 
-/* --- Print styles ---------------------------------------------------------- */
+/* --- Print -------------------------------------------------------------------- */
 @media print {
-    .theme-toggle, .art, .footer {
+    .theme-toggle {
         display: none;
     }
 
     body {
-        background: white;
-        color: black;
+        background: #fff;
+        color: #000;
     }
-}
-
-/* --- Footnotes ------------------------------------------------------------- */
-.footnotes {
-    margin-top: 3rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--secondary);
 }

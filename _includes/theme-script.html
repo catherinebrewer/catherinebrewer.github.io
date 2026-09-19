@@ -1,15 +1,29 @@
 <script>
-    // Toggle between light and dark mode, and save the preference to localStorage.
+    // Applies the saved theme immediately (this include lives in <head>, so it
+    // runs before first paint and a dark-mode visitor gets no white flash).
+    if (localStorage.getItem('theme') === 'dark' ||
+        (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+    }
+
+    // The button label names the mode you'd switch TO, not the one you're in:
+    // "dark mode" while light, "light mode" while dark.
+    function syncThemeLabel() {
+        var label = document.querySelector('.theme-label');
+        if (label) {
+            label.textContent =
+                document.documentElement.classList.contains('dark') ? 'light mode' : 'dark mode';
+        }
+    }
+
     function toggleTheme() {
         document.documentElement.classList.toggle('dark');
         localStorage.setItem('theme',
             document.documentElement.classList.contains('dark') ? 'dark' : 'light'
         );
+        syncThemeLabel();
     }
 
-    // On page load: restore the saved theme, or follow the OS preference.
-    if (localStorage.getItem('theme') === 'dark' ||
-        (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark');
-    }
+    // The button doesn't exist yet at <head> time — wait for the DOM.
+    document.addEventListener('DOMContentLoaded', syncThemeLabel);
 </script>
