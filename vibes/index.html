@@ -4,7 +4,7 @@
 </head>
     <title> 2026 vibes </title>
     <h1>2026 vibes</h1>
-    inspired by <a href="https://www.xavicf.com/vibes">Xavi</a>, <a href="https://guzey.com/vibes/">Guzey</a>, and <a href="https://girl.surgery/website_vibes/">Sophia</a>; <a href="https://gist.github.com/sophiawisdom/c1b16fcaca017d1aec2358c6fb619697">make your own</a>.
+    inspired by <a href="https://www.xavicf.com/vibes/">Xavi</a>, <a href="https://guzey.com/vibes/">Alexei</a>, and <a href="https://girl.surgery/website_vibes/">Sophia</a>; <a href="https://gist.github.com/sophiawisdom/c1b16fcaca017d1aec2358c6fb619697">make your own</a>.
 
     <!-- Add any text here if you so desire; the images won't be drawn over it. -->
     <div id="container">
@@ -74,10 +74,10 @@ fetch("image_widths_heights.json").then(f => {
     // any other images, try again. If after 50 attempts at random placing we don't manage to place it, increase the
     // height by 50.
     let positions = [];
-    let i = 0;
-    // the images appear one at a time, every 100ms -- that gradual reveal is the
-    // look of the thing, so it stays. Change the 100 at the bottom to retime it.
-    let interval = setInterval(() => {
+    // Place every image in one pass and add them all at once, so the page renders
+    // as fast as possible instead of revealing one image at a time.
+    const fragment = document.createDocumentFragment();
+    for (let i = 0; i < key_values.length; i++) {
         let height = 600;
         let [w, h] = pairs[i];
         while (1) {
@@ -140,13 +140,9 @@ fetch("image_widths_heights.json").then(f => {
         img.style.left = positions[i][0];
         img.loading = "lazy";
         img.decoding = "async";
-        container.appendChild(img);
-
-        i++;
-        if (i == key_values.length) {
-            clearInterval(interval);
-        }
-    }, 100);
+        fragment.appendChild(img);
+    }
+    container.appendChild(fragment);
 })
     </script>
 </html>
