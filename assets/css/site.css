@@ -274,6 +274,29 @@ code, pre {
     color: var(--secondary);
 }
 
+/* --- Home page tree ----------------------------------------------------------
+   The fractal tree that unfurls in the bottom-right corner on load (drawn by
+   assets/js/leaves.js). z-index -1 keeps it behind the text; the mask fades it
+   out towards the top-left so it never competes with the column. Hidden on
+   narrow screens, where it would sit under the text. */
+#leaves {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: min(56vw, 740px);
+    height: min(74vh, 600px);
+    z-index: -1;
+    pointer-events: none;
+    -webkit-mask-image: radial-gradient(ellipse 100% 100% at 100% 100%, #000 45%, rgba(0, 0, 0, .55) 70%, transparent 100%);
+            mask-image: radial-gradient(ellipse 100% 100% at 100% 100%, #000 45%, rgba(0, 0, 0, .55) 70%, transparent 100%);
+}
+
+@media (max-width: 800px) {
+    #leaves {
+        display: none;
+    }
+}
+
 /* --- Mobile ------------------------------------------------------------------ */
 @media (max-width: 600px) {
     :root {
@@ -287,6 +310,10 @@ code, pre {
 
 /* --- Print -------------------------------------------------------------------- */
 @media print {
+    #leaves {
+        display: none;
+    }
+
     body {
         background: #fff;
         color: #000;
